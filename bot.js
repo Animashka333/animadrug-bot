@@ -2,8 +2,17 @@ const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 
 const app = express();
+
+// Проверяем наличие токена
+if (!process.env.BOT_TOKEN) {
+  console.error('❌ ОШИБКА: BOT_TOKEN не установлен!');
+  process.exit(1);
+}
+
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
+
+console.log('✅ Токен получен, запускаем бота...');
 
 // Бот реагирует на команду /start
 bot.onText(/\/start/, (msg) => {
@@ -32,6 +41,6 @@ bot.onText(/\/about/, (msg) => {
 // Запускаем сервер
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log('🤖 Бот Анимадруг запущен!');
+  console.log('🤖 Бот Анимадруг УСПЕШНО запущен!');
   console.log('📍 Порт: ' + PORT);
 });
