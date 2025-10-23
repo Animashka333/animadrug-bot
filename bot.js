@@ -13,15 +13,23 @@ const bot = new TelegramBot(token, {polling: true});
 
 console.log('Bot starting...');
 
-// Простые команды без эмодзи
+// Бот реагирует на команду /start
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  bot.sendMessage(chatId, 'Привет! Я Анимадруг! Напиши /lesson для начала.');
+  const text = 'Привет! Я Анимадруг!';
+  bot.sendMessage(chatId, text);
 });
 
 bot.onText(/\/lesson/, (msg) => {
   const chatId = msg.chat.id;
-  bot.sendMessage(chatId, 'Урок 1: Нарисуй 3 кадра прыгающего шарика!');
+  const lessonText = 'Урок 1: Нарисуй 3 кадра прыгающего шарика!';
+  bot.sendMessage(chatId, lessonText);
+});
+
+bot.onText(/\/about/, (msg) => {
+  const chatId = msg.chat.id;
+  const aboutText = 'Я - Анимадруг! Помогаю изучать анимацию.';
+  bot.sendMessage(chatId, aboutText);
 });
 
 const PORT = process.env.PORT || 3000;
