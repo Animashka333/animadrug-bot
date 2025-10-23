@@ -14,10 +14,18 @@ const bot = new TelegramBot(token, {polling: true});
 
 console.log('Bot starting...');
 
-// Простейшая команда
+// Бот реагирует на команду /start
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  bot.sendMessage(chatId, 'Hello! Bot is working!');
+  const text = 'Привет! Я Анимадруг! Твой помощник в мире анимации!';
+  bot.sendMessage(chatId, text);
+});
+
+// Бот реагирует на команду /lesson  
+bot.onText(/\/lesson/, (msg) => {
+  const chatId = msg.chat.id;
+  const lessonText = 'Урок 1: Оживляем шарик. Принцип сжатия и растяжения!';
+  bot.sendMessage(chatId, lessonText);
 });
 
 // Запускаем сервер
