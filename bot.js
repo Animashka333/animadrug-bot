@@ -14,11 +14,11 @@ console.log('🤖 Бот Анимадруг запускается...');
 
 const userProgress = {};
 
-// Ссылки на изображения с Wikimedia Commons
+// Российские хостинги изображений
 const LESSON_IMAGES = {
-  lesson1: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Animated_Ball.gif',
-  lesson2: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Running_man_icon.gif',
-  lesson3: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Bird_animated.gif'
+  lesson1: 'https://sun9-36.userapi.com/impg/c858532/v858532993/0e6a5/3fP_XB6nR7A.jpg', // прыгающий шарик
+  lesson2: 'https://sun9-48.userapi.com/impg/c858532/v858532993/0e69f/4JgH4J4J4J4.jpg', // бегущий человечек
+  lesson3: 'https://sun9-15.userapi.com/impg/c858532/v858532993/0e6a0/5KkK5KkK5KkK.jpg'  // летающая птица
 };
 
 const mainMenu = {
@@ -83,7 +83,7 @@ bot.on('message', (msg) => {
       userProgress[chatId].currentLesson = 'lesson1';
       
       bot.sendPhoto(chatId, LESSON_IMAGES.lesson1, {
-        caption: `🎾 **Пример прыгающего шарика**\n\nСмотри, как шарик прыгает!`
+        caption: `🎾 **Пример прыгающего шарика**\n\nСмотри, как шарик меняет форму при движении!`
       }).then(() => {
         const lessonText = `📝 **Урок 1: Прыгающий шарик**\n\n` +
                          `🎯 **Твое задание:**\n` +
@@ -95,8 +95,7 @@ bot.on('message', (msg) => {
                          `Присылай свои рисунки! 🎨`;
         bot.sendMessage(chatId, lessonText, mainMenu);
       }).catch(err => {
-        console.error('Ошибка отправки фото:', err);
-        // Если фото не отправилось, отправляем только текст
+        console.log('Ошибка с картинкой, отправляем текст');
         const lessonText = `📝 **Урок 1: Прыгающий шарик**\n\n` +
                          `🎯 **Твое задание:**\n` +
                          `Нарисуй 3 кадра прыгающего шарика:\n\n` +
@@ -126,7 +125,7 @@ bot.on('message', (msg) => {
                          `Жду твои рисунки! 🏃‍♂️`;
         bot.sendMessage(chatId, lessonText, mainMenu);
       }).catch(err => {
-        console.error('Ошибка отправки фото:', err);
+        console.log('Ошибка с картинкой, отправляем текст');
         const lessonText = `📝 **Урок 2: Бегущий человечек**\n\n` +
                          `🎯 **Твое задание:**\n` +
                          `Нарисуй 4 кадра бегущего человечка:\n\n` +
@@ -156,7 +155,7 @@ bot.on('message', (msg) => {
                          `Ты справишься! 🕊️`;
         bot.sendMessage(chatId, lessonText, mainMenu);
       }).catch(err => {
-        console.error('Ошибка отправки фото:', err);
+        console.log('Ошибка с картинкой, отправляем текст');
         const lessonText = `📝 **Урок 3: Летающая птица**\n\n` +
                          `🎯 **Твое задание:**\n` +
                          `Нарисуй 3 кадра летающей птицы:\n\n` +
@@ -171,9 +170,9 @@ bot.on('message', (msg) => {
 
     case '📚 Примеры':
       bot.sendMessage(chatId, `📚 **Примеры анимаций:**\n\nСмотри, что ты научишься создавать!`)
-        .then(() => bot.sendPhoto(chatId, LESSON_IMAGES.lesson1, {caption: '🎾 Прыгающий шарик'}).catch(err => console.error(err)))
-        .then(() => bot.sendPhoto(chatId, LESSON_IMAGES.lesson2, {caption: '🏃‍♂️ Бегущий человечек'}).catch(err => console.error(err)))
-        .then(() => bot.sendPhoto(chatId, LESSON_IMAGES.lesson3, {caption: '🕊️ Летающая птица'}).catch(err => console.error(err)))
+        .then(() => bot.sendPhoto(chatId, LESSON_IMAGES.lesson1, {caption: '🎾 Прыгающий шарик'}).catch(e => console.log(e)))
+        .then(() => bot.sendPhoto(chatId, LESSON_IMAGES.lesson2, {caption: '🏃‍♂️ Бегущий человечек'}).catch(e => console.log(e)))
+        .then(() => bot.sendPhoto(chatId, LESSON_IMAGES.lesson3, {caption: '🕊️ Летающая птица'}).catch(e => console.log(e)))
         .then(() => {
           bot.sendMessage(chatId, 
             `Как тебе примеры? ✨\n\nВыбирай урок и начинай творить! У тебя всё получится!`, 
@@ -181,9 +180,8 @@ bot.on('message', (msg) => {
           );
         })
         .catch(err => {
-          console.error('Ошибка отправки примеров:', err);
           bot.sendMessage(chatId, 
-            `К сожалению, примеры временно недоступны. Но ты все равно можешь начать уроки!`, 
+            `Примеры временно недоступны, но ты можешь начать уроки!`, 
             mainMenu
           );
         });
